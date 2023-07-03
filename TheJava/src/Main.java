@@ -49,6 +49,15 @@ public class Main {
         Predicate<String> startsWithBelk = (s) -> s.startsWith("belk");
         Predicate<Integer> isEven = (i) -> i % 2 == 0;
 
+        /*
+            Lambda 표현식
+            (인자) -> {바디}
+            인자가 없으면 생략 가능
+            인자가 여러개일 때 (one, two)
+            바디가 한 줄이면 {} 생략 가능
 
+            로컬 변수는 final인 경우에만 참조할 수 있다.
+            혹은 effective final(사실상 파이널) 파이널 선언하지 않았지만, 파이널처럼 수정이 없는 경우  
+         */
     }
 }
