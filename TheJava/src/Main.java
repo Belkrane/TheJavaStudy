@@ -57,7 +57,21 @@ public class Main {
             바디가 한 줄이면 {} 생략 가능
 
             로컬 변수는 final인 경우에만 참조할 수 있다.
-            혹은 effective final(사실상 파이널) 파이널 선언하지 않았지만, 파이널처럼 수정이 없는 경우  
+            혹은 effective final(사실상 파이널) 파이널 선언하지 않았지만, 파이널처럼 수정이 없는 경우
          */
+
+
+        /*
+            Lambda의 Method 레퍼런스
+            똑같은 일을 하는 Method를 사용해서 간결하게 작성 가능
+         */
+        Greeting greeting = new Greeting();
+        UnaryOperator<String> hi = Greeting::hi; //메소드가 생성된게 아님.. apply를 해야 메서드가 동작함
+        UnaryOperator<String> hello = greeting::hello;
+        Supplier<Greeting> greetingSupplier = Greeting::new; //실제 인스턴스가 만들어지는게 아님
+        Function<String, Greeting> greetingFunction = Greeting::new; //레퍼런스는 같아 보이지만 서도 다른 생성자를 참조 하고 있음
+
+        Greeting belk = greetingFunction.apply("belk");
+        System.out.println("belk.getName() = " + belk.getName());
     }
 }
