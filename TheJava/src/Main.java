@@ -73,5 +73,22 @@ public class Main {
 
         Greeting belk = greetingFunction.apply("belk");
         System.out.println("belk.getName() = " + belk.getName());
+
+
+            /*
+        Default Method
+        인터페이스에 method가 추가되었을때, 구현체에 Override를 하지 않으면 구현체에서
+        컴파일 오류가 발생한다. 하지만 모든 구현체에 다 추가 할 수는 없기 때문에
+        defualt function을 인터페이스에 구현하면
+        모든 구현체에서 해당 function을 override를 안해도 된다.
+     */
+
+        Foo foo = new DefaultFoo("belk");
+        foo.getName();
+        foo.printName();
+        foo.printNameUpperCase();
     }
+
+
+
 }
