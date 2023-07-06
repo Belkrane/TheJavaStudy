@@ -75,18 +75,23 @@ public class Main {
         System.out.println("belk.getName() = " + belk.getName());
 
 
-            /*
+        /*
         Default Method
         인터페이스에 method가 추가되었을때, 구현체에 Override를 하지 않으면 구현체에서
         컴파일 오류가 발생한다. 하지만 모든 구현체에 다 추가 할 수는 없기 때문에
         defualt function을 인터페이스에 구현하면
         모든 구현체에서 해당 function을 override를 안해도 된다.
-     */
+
+        defalut method는 구현체가 알 수 없기 때문에, @ImplSpec 으로 문서화하는 것이 좋다.
+        두개의 인터페이스를 동시에 구현하는 구현체에서 같은 default method가 있는 경우에는 컴파일 에러 발생, override해야함
+        */
 
         Foo foo = new DefaultFoo("belk");
         foo.getName();
         foo.printName();
         foo.printNameUpperCase();
+
+        Foo.printAnything();
     }
 
 
