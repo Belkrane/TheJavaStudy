@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Spliterator;
 import java.util.function.*;
 
 public class Main {
@@ -92,6 +95,35 @@ public class Main {
         foo.printNameUpperCase();
 
         Foo.printAnything();
+        System.out.println("==============");
+        List<String> name = new ArrayList<>();
+        name.add("belk");
+        name.add("belkrane");
+        name.add("foo");
+        name.add("java");
+
+        /*
+         * forEach -> 각각의 Element에 접근
+         * spliterator -> iterator와 비슷, 쪼갤 수 있는 기능을 가지고 있는 interator
+         * stream -> collection 을 stream으로 만들어서 처리
+         * removeIf -> 특정 조건 element 삭제
+         *
+         */
+        //name.forEach(System.out::println);
+        Spliterator<String> spliterator = name.spliterator();
+        Spliterator<String> spliterator1 = spliterator.trySplit();
+        while(spliterator.tryAdvance(System.out::println));
+        System.out.println("==============");
+        while(spliterator1.tryAdvance(System.out::println));
+        System.out.println("==============");
+        long k = name.stream().map(String::toUpperCase).filter(s -> s.startsWith("B"))
+                .count();
+
+        System.out.println("k = " + k);
+
+        name.removeIf(s -> s.startsWith("b"));
+        
+
     }
 
 
