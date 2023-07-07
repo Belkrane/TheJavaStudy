@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -96,11 +98,11 @@ public class Main {
 
         Foo.printAnything();
         System.out.println("==============");
-        List<String> name = new ArrayList<>();
-        name.add("belk");
-        name.add("belkrane");
-        name.add("foo");
-        name.add("java");
+        List<String> names = new ArrayList<>();
+        names.add("belk");
+        names.add("belkrane");
+        names.add("foo");
+        names.add("java");
 
         /*
          * forEach -> 각각의 Element에 접근
@@ -110,19 +112,52 @@ public class Main {
          *
          */
         //name.forEach(System.out::println);
-        Spliterator<String> spliterator = name.spliterator();
+        Spliterator<String> spliterator = names.spliterator();
         Spliterator<String> spliterator1 = spliterator.trySplit();
         while(spliterator.tryAdvance(System.out::println));
         System.out.println("==============");
         while(spliterator1.tryAdvance(System.out::println));
         System.out.println("==============");
-        long k = name.stream().map(String::toUpperCase).filter(s -> s.startsWith("B"))
+        long k = names.stream().map(String::toUpperCase).filter(s -> s.startsWith("B"))
                 .count();
 
         System.out.println("k = " + k);
 
-        name.removeIf(s -> s.startsWith("b"));
-        
+        names.removeIf(s -> s.startsWith("b"));
+
+        /*
+         * 연속된 데이터들을 처리하는 opertaion들의 모음?(저장소가 아님!)
+         *
+         */
+        List<String> names2 = new ArrayList<>();
+        names2.add("belk");
+        names2.add("belkrane");
+        names2.add("foo");
+        names2.add("java");
+
+        Stream<String> stringStream = names2.stream().map(String::toUpperCase);
+
+        names2.forEach(System.out::println);
+
+        System.out.println("==================");
+
+        List<String> collect = names2.stream().map((s)->{
+            System.out.println("s = " + s);
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+
+        collect.forEach(System.out::println);
+
+        System.out.println("==================");
+
+        List<String> collect1 = names2.parallelStream().map((s)->{
+            System.out.println(s + " " + Thread.currentThread().getName());
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+
+
+        collect1.forEach(System.out::println);
+
 
     }
 
