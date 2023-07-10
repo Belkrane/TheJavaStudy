@@ -13,14 +13,42 @@ public class Optional {
 
     public static void main(String[] args) {
         List<OnlineClass> springClasses = new ArrayList<>();
-        springClasses.add(new OnlineClass(1, "spring boot", true));
+      springClasses.add(new OnlineClass(1, "spring boot", true));
         springClasses.add(new OnlineClass(2, "spring data jpa", true));
         springClasses.add(new OnlineClass(3, "spring mvc", false));
         springClasses.add(new OnlineClass(4, "spring core", false));
         springClasses.add(new OnlineClass(5, "rest api development", false));
 
         OnlineClass spring_boot = new OnlineClass(1, "spring_boot", true);
-        Duration studyDuration = spring_boot.progress.getStudyDuration();
-        System.out.println("studyDuration = " + studyDuration);
+        //Duration studyDuration = spring_boot.progress.getStudyDuration();
+        //System.out.println("studyDuration = " + studyDuration);
+
+        java.util.Optional<OnlineClass> spring = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+
+        boolean present = spring.isPresent();
+        System.out.println("present = " + present);
+
+        //값을 가지고 뭔가를 해야 한다.
+        spring.ifPresent(oc-> System.out.println(oc.getTitle()));
+        OnlineClass onlineClass = spring.orElseGet(()->createNewClass());
+
+        System.out.println(onlineClass.getTitle());
+
+        OnlineClass onlineClass1 = spring.orElseThrow(() ->{
+            return new IllegalArgumentException();
+        });
+
+        //return 이 Optional임.
+        java.util.Optional<OnlineClass> onlineClass2 = spring.filter(oc->oc.getId() > 10);
+
+        System.out.println(onlineClass2.isEmpty());
+
+    }
+
+    private static OnlineClass createNewClass() {
+        System.out.println("creating new online class");
+        return new OnlineClass(10, "New Class", false);
     }
 }
